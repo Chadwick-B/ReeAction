@@ -46,11 +46,13 @@ const AudioStreamModule = (() => {
         draw();
     }
 
-    navigator.getUserMedia(
-        {audio: true},
-        (stream) => StartAudioStream(stream),
-        () => alert('Microphone not found.')
-    );
+    navigator.mediaDevices.getUserMedia({ audio: true })
+        .then((stream) => {
+            StartAudioStream(stream);
+        })
+        .catch((err) => {
+            alert('Microphone not found.');
+        })
 })();
 
 export default AudioStreamModule;
